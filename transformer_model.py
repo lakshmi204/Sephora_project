@@ -1,5 +1,6 @@
 # Author: mahalakshmianandh
 # Date: 2023-03-25
+import os
 
 from transformers import AutoTokenizer, AutoModel
 from qdrant_client import QdrantClient
@@ -24,6 +25,8 @@ class ProductEmbedding:
         :param dropna:
         :param payloads:
         """
+        if not os.path.exists('./model'):
+            os.makedirs('./model')
         self.tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir='./model')
         self.model = AutoModel.from_pretrained(model_name, cache_dir='./model')
         self.file_name = file_name
